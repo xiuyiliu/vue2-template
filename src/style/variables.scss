@@ -1,0 +1,14 @@
+/*
+项目级的样式变量，element-variables文件中的主题颜色变量从这里引入。
+这里是项目内样式变量的唯一数据源
+*/
+/* theme color */
+$color-primary: #409EFF;
+$color-success: #67C23A;
+$color-warning: #E6A23C;
+$color-danger: #F56C6C;
+$color-info: #909399;
+　
+//:export {
+//  theme: $color-primary;
+//}

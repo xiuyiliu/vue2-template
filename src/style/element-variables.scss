@@ -1,0 +1,21 @@
+/*
+覆盖element-ui中的变量以改变组件库的主题和样式。完整的文件可以去网上搜索element-variables.scss
+找到你需要覆盖的变量添加进来就好了。文件末尾引入的font和样式是必须的。
+主题相关的几个颜色变量从variables.scss引入，variables.scss是项目内样式变量的唯一数据源
+*/
+@import './variables.scss';
+/* Color
+-------------------------- */
+/// color|1|Brand Color|0
+$--color-primary: $color-primary !default;
+/// color|1|Functional Color|1
+$--color-success: $color-success !default;
+/// color|1|Functional Color|1
+$--color-warning: $color-warning !default;
+/// color|1|Functional Color|1
+$--color-danger: $color-danger !default;
+
+/* icon font path, required */
+$--font-path: "~element-ui/lib/theme-chalk/fonts";
+
+@import "~element-ui/packages/theme-chalk/src/index";

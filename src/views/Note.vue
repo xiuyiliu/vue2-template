@@ -1,9 +1,12 @@
 <template>
-  <div>note</div>
+  <div class="padding-10">
+    <el-button type="primary">提交</el-button>
+  </div>
 </template>
 
 <script>
 import { findAllNote } from '@/api/note'
+import { theme } from '@/style/variables.scss'
 
 export default {
   name: 'Note',
@@ -12,6 +15,7 @@ export default {
   },
   created () {
     this.getNoteList()
+    console.log(theme)
   },
   methods: {
     getNoteList () {

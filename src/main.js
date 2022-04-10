@@ -4,7 +4,8 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import Element from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import 'normalize.css/normalize.css' // reset css
+import '@/style/index.scss'
 
 Vue.use(Element)
 
