@@ -8,13 +8,13 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: true
-    },
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
-        changeOrigin: true,
-        pathRewrite: { '^/api': '' }
-      }
     }
+    // proxy: {
+    //   '/api': {
+    //     target: 'http://localhost:3000',
+    //     changeOrigin: true,
+    //     pathRewrite: { '^/api': '' }
+    //   }
+    // }
   }
 }

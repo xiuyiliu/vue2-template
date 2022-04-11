@@ -14,7 +14,7 @@ export default {
     return {}
   },
   created () {
-    this.getNoteList()
+    // this.getNoteList()
     console.log(theme)
   },
   methods: {
