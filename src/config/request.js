@@ -1,6 +1,6 @@
 import Axios from 'axios'
 import { Message, Loading } from 'element-ui'
-import common from '@/utils/common'
+import { getToken } from '@/utils/common'
 
 // 在配置axios实例时，需要在切面配置接口请求的loading，在项目层面上防止在请求接口时的用户操作。
 // 为了防止同时调用多个接口导致生成多个loading实例的问题，需要做出以下配置：
@@ -44,7 +44,7 @@ service.defaults.headers.common.Pragma = 'no-cache'
 // 添加请求拦截器
 service.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
-  const token = common.getToken()
+  const token = getToken()
   if (token) {
     config.headers.token = token
   }

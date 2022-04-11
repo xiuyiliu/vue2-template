@@ -2,7 +2,7 @@
 import router from '@/router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css' // progress bar style
-import common from '@/utils/common'
+import { getToken } from '@/utils/common'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
@@ -13,7 +13,7 @@ router.beforeEach(async (to, from, next) => {
   NProgress.start()
 
   // determine whether the user has logged in
-  const hasToken = common.getToken()
+  const hasToken = getToken()
   if (hasToken) {
     // 如果在已经登录的情况下跳转路径是登录也，则直接跳转到首页即可，无需重新登录
     if (to.path === '/login') {
