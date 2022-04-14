@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import echarts from './echarts'
+import map from './baidu-map'
 
 Vue.use(VueRouter)
 
@@ -20,7 +21,8 @@ const routes = [
     name: 'Login',
     component: () => import('@/views/Login.vue')
   },
-  echarts,
+  ...echarts,
+  ...map,
   {
     path: '/404',
     name: 'NotFound',
