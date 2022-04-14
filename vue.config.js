@@ -2,6 +2,11 @@
 // import { resolve } from 'path'
 
 module.exports = {
+  configureWebpack: {
+    externals: {
+      echarts: 'echarts'
+    }
+  },
   devServer: {
     port: 8000,
     open: true,

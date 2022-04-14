@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import echarts from './echarts'
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,7 @@ const routes = [
     name: 'Login',
     component: () => import('@/views/Login.vue')
   },
+  echarts,
   {
     path: '/404',
     name: 'NotFound',
