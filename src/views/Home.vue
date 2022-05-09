@@ -2,6 +2,8 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <app-upload></app-upload>
+    <app-upload-plus></app-upload-plus>
   </div>
 </template>
 
@@ -13,6 +15,11 @@ export default {
   name: 'Home',
   components: {
     HelloWorld
+  },
+  data () {
+    return {
+      disabled: true
+    }
   }
 }
 </script>

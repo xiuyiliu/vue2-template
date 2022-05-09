@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import echarts from './echarts'
+import interview from './interview'
 import map from './baidu-map'
 
 Vue.use(VueRouter)
@@ -23,6 +24,7 @@ const routes = [
   },
   ...echarts,
   ...map,
+  ...interview,
   {
     path: '/404',
     name: 'NotFound',

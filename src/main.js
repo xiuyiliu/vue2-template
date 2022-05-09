@@ -3,11 +3,14 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+import components from './components'
 import Element from 'element-ui'
 import '@/style/index.scss'
 import 'normalize.css/normalize.css' // reset css
 // import './config/permission'
 import BaiduMap from 'vue-baidu-map' // 引入百度地图
+
+Vue.use(components)
 Vue.use(Element, {
   size: 'small'
 })
