@@ -9,10 +9,8 @@
       :limit="limit"
       :accept="accept"
       :disabled="disabled"
-      :on-preview="handleDownload"
       :on-success="handleSuccess"
-      :before-upload="handleBeforeUpload"
-      :before-remove="handleBeforeRemove">
+      :before-upload="handleBeforeUpload">
       <slot v-if="!disabled">
         <el-button type="primary" size="small">点击上传</el-button>
       </slot>
@@ -21,9 +19,7 @@
       <div class="attachment-item" v-for="(item, index) in fileList" :key="index">
         <div class="attachment-item-section">
           <div class="attachment-item-icon">
-            <svg class="icon" aria-hidden="true">
-              <use :xlink:href="getIconImage(item.suffix)"></use>
-            </svg>
+            <svg-icon class-name="icon" :icon-class="getIconImage(item.suffix)"></svg-icon>
           </div>
           <div class="attachment-item-name">{{ item.name }}</div>
         </div>
@@ -53,11 +49,11 @@
         </div>
       </div>
     </div>
-    <!--<el-image-viewer
+    <el-image-viewer
       v-if="imagePreviewVisible"
       :initialIndex="imagePreviewIndex"
       :on-close="handleImageViewerClose"
-      :url-list="imagePreviewList"/>-->
+      :url-list="imagePreviewList"/>
   </div>
 </template>
 
@@ -72,11 +68,11 @@
  * 6，自定义文件列表，列表中的每一项由区分文件类型的图标，名字，预览按钮，删除按钮和下载按钮组成。
  *    同时，优化图片的预览功能，缓存附件中的所有图片，预览时只针对图片的上下翻页等。
  */
-// import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
+import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
 export default {
-  // components: {
-  //   ElImageViewer
-  // },
+  components: {
+    ElImageViewer
+  },
   props: {
     uploadUrl: {
       type: String,
@@ -123,14 +119,33 @@ export default {
           url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
         },
         {
-          name: 'food2.jpeg',
-          suffix: 'jpeg',
-          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+          name: 'food2.png',
+          suffix: 'png',
+          url: 'http://www.baidu.com/img/bdlogo.png'
         }
-      ]
+      ],
+      // 优化需求：当随便点开某一条图片类型的数据预览时，支持缩放，顺逆时针旋转，上下一张。其中上下一张是在所有已上传的附件列表中，只需要过滤出图片类型的数据上下翻页，忽略非图片类型的附件。
+      imagePreviewVisible: false, // 图片预览visible
+      imagePreviewList: [], // 图片预览数组
+      imagePreviewIndex: 0, // 被预览的图片在数组中的索引。保证预览时第一张显示的是被预览的图片
+      acceptImageType: ['.png', '.tif', '.jpg', '.jpeg', '.gif', '.bmp', '.svg'], // 通过图片的后缀来从附件列表中筛选出图片
+      acceptImageSuffix: ['png', 'tif', 'jpg', 'jpeg', 'gif', 'bmp', 'svg']
     }
   },
+  created () {
+    this.init()
+  },
   methods: {
+    init () {
+      // 将图片类型的数据筛选出来单独缓存，用来图片预览时的上下翻页。
+      this.fileList.forEach(file => {
+        this.acceptImageType.forEach(suffix => {
+          if (file.name.endsWith(suffix)) {
+            this.imagePreviewList.push(file.url)
+          }
+        })
+      })
+    },
     handleBeforeUpload (file) {
       const validType = this.fileType.includes(file.type)
       const validSize = file.size / 1024 / 1024 < this.fileSize
@@ -144,6 +159,7 @@ export default {
     },
     handleSuccess (response, file, fileList) {
       // response 是文件服务返回的数据。整理成fileList数组对象的格式，同步fileList属性。
+      // 将图片类型的数据筛选出来单独缓存，用来图片预览时的上下翻页。
     },
     handleDownload (file) {
       this.$confirm(`确定要下载${file.name}? `).then(() => {
@@ -160,18 +176,43 @@ export default {
     },
     getIconImage (suffix) {
       if (this.accept.match(suffix)) {
-        if (suffix.toUpperCase() === 'PDF') {
-          return '#icon-' + 'PDF-copy'
-        } else if (suffix.toUpperCase() === 'ZIP') {
-          return '#icon-' + 'zip'
-        } else {
-          return '#icon-' + suffix.toUpperCase()
-        }
+        return suffix
       } else {
-        return '#icon-other'
+        return 'file'
       }
     },
-    handleImagePreview () {}
+    handleImagePreview (file) {
+      console.log(file)
+      if (this.acceptImageSuffix.includes(file.suffix)) {
+        this.imagePreviewIndex = this.imagePreviewList.findIndex(url => {
+          return url === file.url
+        })
+        if (this.imagePreviewIndex !== -1) {
+          this.imagePreviewVisible = true
+        }
+      } else if (
+        file.suffix === 'doc' ||
+        file.suffix === 'xlsx' ||
+        file.suffix === 'ppt' ||
+        file.suffix === 'xls' ||
+        file.suffix === 'xlsx' ||
+        file.suffix === 'docx' ||
+        file.suffix === 'pptx'
+      ) {
+        window.open(
+          'https://view.officeapps.live.com/op/view.aspx?src=' + file.url
+        )
+      } else if (file.suffix === 'pdf') {
+        window.open(
+          file.url
+        )
+      }
+    },
+    /** 关闭图片预览 */
+    handleImageViewerClose () {
+      this.imagePreviewVisible = false
+      this.imagePreviewIndex = 0
+    }
   }
 }
 </script>

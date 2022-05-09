@@ -9,7 +9,7 @@ import '@/style/index.scss'
 import 'normalize.css/normalize.css' // reset css
 // import './config/permission'
 import BaiduMap from 'vue-baidu-map' // 引入百度地图
-
+import './icons'
 Vue.use(components)
 Vue.use(Element, {
   size: 'small'
