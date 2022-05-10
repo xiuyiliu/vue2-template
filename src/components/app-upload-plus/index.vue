@@ -138,13 +138,15 @@ export default {
   methods: {
     init () {
       // 将图片类型的数据筛选出来单独缓存，用来图片预览时的上下翻页。
-      this.fileList.forEach(file => {
-        this.acceptImageType.forEach(suffix => {
-          if (file.name.endsWith(suffix)) {
-            this.imagePreviewList.push(file.url)
-          }
+      if (this.fileList.length > 0) {
+        this.fileList.forEach(file => {
+          this.acceptImageType.forEach(suffix => {
+            if (file.name.endsWith(suffix)) {
+              this.imagePreviewList.push(file.url)
+            }
+          })
         })
-      })
+      }
     },
     handleBeforeUpload (file) {
       const validType = this.fileType.includes(file.type)

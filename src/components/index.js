@@ -1,9 +1,11 @@
 import AppUpload from './app-upload'
 import AppUploadPlus from './app-upload-plus'
+import AppPagination from './app-pagination'
 
 const components = {
   AppUpload,
-  AppUploadPlus
+  AppUploadPlus,
+  AppPagination
 }
 
 export default {
