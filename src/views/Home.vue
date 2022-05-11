@@ -3,13 +3,14 @@
     <img alt="Vue logo" src="../assets/logo.png">
     <app-upload></app-upload>
     <app-upload-plus></app-upload-plus>
-    <div>
+    <app-staff :staff-id="staffId" style="width: 270px;"></app-staff>
+    <!--<div>
       <el-table :data="tableList">
         <el-table-column label="姓名" prop="name"></el-table-column>
         <el-table-column label="年龄" prop="age"></el-table-column>
       </el-table>
       <app-pagination :pager.sync="pager" @change="pagerChange"></app-pagination>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -19,6 +20,7 @@ export default {
   data () {
     return {
       disabled: true,
+      staffId: null,
       tableList: [
         { name: 'a', age: 11 },
         { name: 'b', age: 12 },

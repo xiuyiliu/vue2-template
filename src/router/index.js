@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import echarts from './echarts'
 import interview from './interview'
 import map from './baidu-map'
+import css from './css-study'
 
 Vue.use(VueRouter)
 
@@ -25,6 +26,7 @@ const routes = [
   ...echarts,
   ...map,
   ...interview,
+  ...css,
   {
     path: '/404',
     name: 'NotFound',

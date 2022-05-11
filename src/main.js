@@ -6,7 +6,6 @@ import store from './store'
 import components from './components'
 import Element from 'element-ui'
 import '@/style/index.scss'
-import 'normalize.css/normalize.css' // reset css
 // import './config/permission'
 import BaiduMap from 'vue-baidu-map' // 引入百度地图
 import './icons'
